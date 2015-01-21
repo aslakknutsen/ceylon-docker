@@ -1,0 +1,37 @@
+== Ceylon related Docker images
+
+
+=== Setup PostgreSQL backend for Ceylon Herd image
+
+==== Create PostgreSQL Data instance
+
+[source, console]
+----
+docker run -i -t -name ceylon-herd-dbstore -v /var/lib/postgresql/data busybox sh
+----
+
+==== Create PostgreSQL instance
+
+[source, console]
+----
+docker run -d -volumes-from ceylon-herd-dbstore -e POSTGRES_PASSWORD=ceylon-herd -e POSTGRES_USER=ceylon-herd --name ceylon-herd-db postgres
+----
+
+==== Create Ceylon Herd
+
+[source, console]
+----
+docker run -it -p 9000:9000 --name=ceylon-herd --link=ceylon-herd-db:ceylon-herd-db ceylon/ceylon-herd:1.18 
+----
+
+
+You can shutdown all images. Next time simply do;
+
+[source, console]
+----
+docker start ceylon-herd-db
+docker start ceylon-herd
+----
+
+
+Now via browser go to http://localhost:9000
