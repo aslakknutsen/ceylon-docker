@@ -19,9 +19,9 @@ ENV CEYLON_HERD_HOME /opt/jboss/ceylon-herd
 
 RUN cd $CEYLON_HERD_HOME && play dependencies
 
-ADD application.conf /opt/jboss/ceylon-herd/conf/application.conf 
-
 EXPOSE 9000
 WORKDIR $CEYLON_HERD_HOME
+
+ADD application.conf /opt/jboss/ceylon-herd/conf/application.conf
 
 CMD play run 
